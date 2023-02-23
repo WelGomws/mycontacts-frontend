@@ -1,11 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
 ### `yarn start`
 
 Runs the app in the development mode.\
@@ -13,11 +5,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn build`
 
@@ -29,42 +16,35 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+# Custom Events Js
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+EventEmitter
+2 pilares => Events e Listeners
+Emissão de eventos para os listeners ouvirem
+com a api do CustomEventos nativa do js
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Por que criar nosso próprio eventManager?
+  - Compatibilidade com os navegadores e dispositivos;
+  - Se não tiver acoplado a DOM não faz sentido usar o document;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Acessibilidade
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- tabIndex -> é como o z-index da tela;
+- role -> pra tornar uma coisa trigavel pro leitor de tela
 
-## Learn More
+O timeOut retorna o id para ser usado no clearTimeOut
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# States
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+StateLifting -> Levar o estado de um filho para o pai (invés de usar os estados no filho, usar no pai);
+Derived state -> um estado que inicia seu valor a partir de uma propriedade;
+Declarativo -> como deve se comportar
+Imperativo -> a gente diz como algo vai acontecer
 
-### Code Splitting
+A propriedade key monta e desmonta o componente da tela a cada vez que o key for alterado
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-> Sempre que tiver uma operação critica na interface use uma opção de confirmação;
 
-### Analyzing the Bundle Size
+## Porque é mais complicado animar saida de componentes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Tecnicamente quando fechamos o componente não tem mais nada para animar.
