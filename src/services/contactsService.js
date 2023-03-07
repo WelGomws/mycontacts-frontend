@@ -1,5 +1,8 @@
 import ContactMapper from './mappers/contactMapper';
 import HttpClient from './utils/httpClient';
+import contactLocalDataSource from './utils/localDataSource';
+
+// const log = (s) => console.log(s)
 
 class ContactsService {
   constructor() {
@@ -7,7 +10,12 @@ class ContactsService {
   }
 
   async listContacts(orderBy = 'asc') {
-    const contacts = await this.httpClient.get(`/contacts?orderBy=${orderBy}`);
+    let contacts
+    contacts = contactLocalDataSource.listContacts(orderBy)
+    if (!contacts) {
+      contacts = await this.httpClient.get(`/contacts?orderBy=${orderBy}`);
+      contactLocalDataSource.saveContacts(contacts)
+    }
     return contacts.map(ContactMapper.toDomain);
   }
 
