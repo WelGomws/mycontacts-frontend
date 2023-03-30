@@ -1,12 +1,15 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import ContactsService from '../../services/contactsService';
+// import EventManager from '../../lib/eventManager';
 import toast from '../../utils/toast';
+
+// const homeEventManager = new EventManager()
 
 export default function useHome() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [contactBeingDeleted, setContactBeingDeleted] = useState(null);
@@ -20,23 +23,42 @@ export default function useHome() {
     [contacts, searchTerm]
   );
 
-  const loadContacts = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const contactsList = await ContactsService.listContacts(orderBy);
-      setHasError(false);
-      setContacts(contactsList);
-    } catch (error) {
-      setHasError(true);
-      setContacts([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [orderBy]);
+  // const loadContacts = useCallback(async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const contactsList = await ContactsService.listContacts(orderBy);
+  //     setHasError(false);
+  //     setContacts(contactsList);
+  //   } catch (error) {
+  //     setHasError(true);
+  //     setContacts([]);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }, [orderBy]);
+
+  const handleCreateNewContact = () => {
+    ContactsService.createContact({
+      id: 'asdfasf',
+      name: 'teste usuario',
+      email: 'teste@mail.com',
+      phone: '712783591824',
+      // category_id: '321',
+    })
+  }
 
   useEffect(() => {
-    loadContacts();
-  }, [loadContacts]);
+    // ContactsService.listContacts(setContacts)
+    // homeEventManager.on('updateContactsList', (data) => setContacts(data))
+    // ContactsService.listContacts((data) => homeEventManager.emit('updateContactsList', data))
+
+    const updateContacts = (data) => setContacts(data)
+    ContactsService.attach(updateContacts)
+
+    return () => {
+      ContactsService.detach(updateContacts)
+    }
+  }, []);
 
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
@@ -46,9 +68,9 @@ export default function useHome() {
     setSearchTerm(event.target.value);
   }
 
-  function handleTryAgain() {
-    loadContacts();
-  }
+  // function handleTryAgain() {
+  //   loadContacts();
+  // }
 
   function handleDeleteContact(contact) {
     setIsDeleteModalVisible(true);
@@ -86,7 +108,8 @@ export default function useHome() {
     searchTerm,
     handleChangeSearchTerm,
     filteredContacts,
-    handleTryAgain,
+    handleCreateNewContact,
+    // handleTryAgain,
     hasError,
     handleToggleOrderBy,
     orderBy,

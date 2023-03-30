@@ -3,11 +3,7 @@ const contentToCache = [
   "/",
   "/index.html",
   "/styles.css",
-  "/static/js/bundle.js",
-  "/static/media/trash.svg",
-  "/static/media/arrow.svg",
-  "/static/media/edit.svg",
-  "/static/media/logo.svg",
+  "/static/js/bundle.js"
 ];
 
 self.addEventListener("install", (e) => {
@@ -22,7 +18,35 @@ self.addEventListener("install", (e) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log('fetch listener on SW')
-  console.log('fetch event: ', event.request)
-  event.respondWith(caches.match(event.request));
+  // console.log('fetch event on SW: ', event.request)
+
+  if (event.request.url.includes('contacts')) {
+
+    // console.log('network only flow: ', event.request)
+
+    // event.respondWith(fetch(event.request));
+
+  } else {
+
+    event.respondWith(caches.open(cacheName).then((cache) => {
+      // Go to the cache first
+      return cache.match(event.request.url).then((cachedResponse) => {
+        // Return a cached response if we have one
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        // Otherwise, hit the network
+        return fetch(event.request).then((fetchedResponse) => {
+          // Add the network response to the cache for later visits
+          cache.put(event.request, fetchedResponse.clone());
+
+          // Return the network response
+          return fetchedResponse;
+        });
+      });
+    }));
+
+  }
+
 });

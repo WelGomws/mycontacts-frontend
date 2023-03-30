@@ -10,10 +10,10 @@ class ContactsLocalDataSource {
     if (!arrayContacts.length) return null
     return arrayContacts.map(ContactMapper.toDomain).sort((a, b) => {
       if (orderBy === 'asc') {
-        if (a.name.length < b.name.length) return 1
+        if (a.name.length > b.name.length) return 1
         return -1
       }
-      if (a.name.length > b.name.length) return 1
+      if (a.name.length <= b.name.length) return 1
       return -1
     })
   }
@@ -22,6 +22,15 @@ class ContactsLocalDataSource {
     console.log('save contacts: ', contacts)
     const contactsToPersist = contacts.map(ContactMapper.toPersistence)
     localStorage.setItem('@MyContacts:contacts', JSON.stringify(contactsToPersist))
+    return true
+  }
+
+  saveNewContact(newContact) {
+    console.log('save contact: ', newContact)
+    // const newContactToPersist = ContactMapper.toPersistence(contact)
+    const currentContacts = this.listContacts()
+    this.saveContacts([newContact, ...currentContacts])
+    // localStorage.setItem('@MyContacts:contacts', JSON.stringify(contactToPersist))
     return true
   }
 

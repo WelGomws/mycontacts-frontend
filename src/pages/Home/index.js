@@ -21,9 +21,10 @@ export default function Home() {
     hasError,
     orderBy,
     handleCloseDeleteModal,
+    handleCreateNewContact,
     handleConfirmDeleteContact,
     handleChangeSearchTerm,
-    handleTryAgain,
+    // handleTryAgain,
     handleToggleOrderBy,
     handleDeleteContact,
   } = useHome();
@@ -39,11 +40,12 @@ export default function Home() {
         <InputSearch value={searchTerm} onChange={handleChangeSearchTerm} />
       )}
       <Header
+        handleClick={handleCreateNewContact}
         hasError={hasError}
         qtyContacts={contacts.length}
         qtyFilteredContacts={filteredContacts.length}
       />
-      {hasError && <ErrorStatus onTryAgain={handleTryAgain} />}
+      {/* {hasError && <ErrorStatus onTryAgain={handleTryAgain} />} */}
       {isEmptyList && <EmptyList />}
       {isSearchEmpty && <SearchNotFound searchTerm={searchTerm} />}
       {hasContacts && (

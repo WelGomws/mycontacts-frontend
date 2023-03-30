@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
 
-export default function Header({ hasError, qtyContacts, qtyFilteredContacts }) {
+export default function Header({ hasError, qtyContacts, qtyFilteredContacts, handleClick }) {
   const alignment = hasError
     ? 'flex-end'
     : qtyContacts > 0
@@ -18,7 +18,8 @@ export default function Header({ hasError, qtyContacts, qtyFilteredContacts }) {
           {qtyFilteredContacts === 1 ? ' contato' : ' contatos'}
         </strong>
       )}
-      <Link to="/new">Novo Contato</Link>
+      {/* <Link to="/new">Novo Contato</Link> */}
+      <button type='button' onClick={() => handleClick()}>Novo Contato</button>
     </Container>
   );
 }

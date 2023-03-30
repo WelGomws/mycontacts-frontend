@@ -33,7 +33,5 @@ const setupSw = () => {
 setupSw()
 
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
 );
