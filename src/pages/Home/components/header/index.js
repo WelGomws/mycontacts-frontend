@@ -18,8 +18,7 @@ export default function Header({ hasError, qtyContacts, qtyFilteredContacts, han
           {qtyFilteredContacts === 1 ? ' contato' : ' contatos'}
         </strong>
       )}
-      {/* <Link to="/new">Novo Contato</Link> */}
-      <button type='button' onClick={() => handleClick()}>Novo Contato</button>
+      <Link to="/new">Novo Contato</Link>
     </Container>
   );
 }

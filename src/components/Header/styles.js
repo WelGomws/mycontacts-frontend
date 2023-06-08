@@ -6,3 +6,11 @@ export const Container = styled.header`
   flex-direction: column;
   align-items: center;
 `;
+
+export const NetworkStatusContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+`;

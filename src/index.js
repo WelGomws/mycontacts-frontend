@@ -5,10 +5,10 @@ import App from './components/App';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+
 const setupSw = () => {
   if ("serviceWorker" in navigator) {
     if (process.env.NODE_ENV == 'development') {
-      // on production, the SW is OneSignalSDKWorker.js
       navigator.serviceWorker.register(new URL(`${window.location.origin}/serviceWorker.js`), {
         scope: '/'
       }).then((registration) => {
